@@ -1,0 +1,23 @@
+Name: Mario Shooter
+Version: 1.2
+Summary: A simple space invader like game using pygame 
+Home-page: http://github.com/kunalk/Mario-Shooter/tree/master
+Author: Kunal Kerkar
+Author-email: kunalkerkar@gmail.com
+License: MIT License
+Description: Mario Shooter - Shooting game based on pygame.
+
+
+		Requirement
+		------------------------------------------
+		You would need Python 2.6 and the Pygame module installed
+
+
+		Usage
+		------------------------------------------
+		> python run_game.py
+
+		Controls
+		------------------------------------------
+	 	Arrow Keys -> For moving around little mario
+		F -> Fire Bullets	
