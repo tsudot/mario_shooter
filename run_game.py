@@ -20,12 +20,12 @@ class Bullet(pygame.sprite.Sprite):
 	def __init__(self):
 		pygame.sprite.Sprite.__init__(self)
 		self.image, self.rect = load_image('bullet.png', -1)
-		self.movx = 0
-		self.movy = 0
 
-	def fire(self, orgx, orgy):
-		self.movx = orgx
-		self.movy = orgy
+	def shoot(self, startpos):
+		self.rect.center = startpos
+		
+	def update(self):
+			self.rect.move_ip(5,0)
 		 
 		
 class Mario(pygame.sprite.Sprite):
@@ -39,11 +39,15 @@ class Mario(pygame.sprite.Sprite):
 		newpos = self.rect.move(self.movx, self.movy)
 #		self.image = pygame.transform.flip(self.image,0,0)
 		self.rect = newpos
+
+	def fire(self):
+		return self.rect.midbottom
 	
 	def change(self, x, y):
-			self.movx+=(2*x)
-			self.movy+=(2*y)
-
+		self.movx+=(2*x)
+		self.movy+=(2*y)
+			
+			
 pygame.init()
 screen = pygame.display.set_mode((468,500))
 pygame.display.set_caption('Mario Shooter')
@@ -56,7 +60,8 @@ pygame.display.flip()
 
 	
 mario = Mario()
-allsprites = pygame.sprite.RenderPlain(mario)
+bullet = Bullet()
+allsprites = pygame.sprite.RenderPlain(mario,bullet)
 clock = pygame.time.Clock()
 
 while 1 :
@@ -73,6 +78,8 @@ while 1 :
 				mario.change(0,-1)
 			elif event.key == K_DOWN:
 				mario.change(0,1)
+			elif event.key == K_f:
+				bullet.shoot(mario.fire())
 		elif event.type == KEYUP:
 			if event.key == K_RIGHT:
 				mario.change(-1,0) 
