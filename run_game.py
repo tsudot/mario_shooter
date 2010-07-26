@@ -24,8 +24,8 @@ class Bullet(pygame.sprite.Sprite):
 	def shoot(self, startpos):
 		self.rect.center = startpos
 		
-	def update(self):
-			self.rect.move_ip(5,0)
+	def update(self):	
+		self.rect.move_ip(5,0)
 		 
 		
 class Mario(pygame.sprite.Sprite):
@@ -41,13 +41,26 @@ class Mario(pygame.sprite.Sprite):
 		self.rect = newpos
 
 	def fire(self):
-		return self.rect.midbottom
+		return self.rect.center
 	
 	def change(self, x, y):
 		self.movx+=(2*x)
 		self.movy+=(2*y)
 			
-			
+
+class Gun(pygame.sprite.Sprite):
+	def __init__(self):
+		pygame.sprite.Sprite.__init__(self)
+		self.startpos = (0,0)
+		
+	def update(self):
+		bullet = Bullet()
+		bullet.shoot(self.startpos)
+		
+	def g_fire(self,startpos):	
+		self.startpos = startpos
+
+
 pygame.init()
 screen = pygame.display.set_mode((468,500))
 pygame.display.set_caption('Mario Shooter')
@@ -61,6 +74,7 @@ pygame.display.flip()
 	
 mario = Mario()
 bullet = Bullet()
+#gun = Gun()
 allsprites = pygame.sprite.RenderPlain(mario,bullet)
 clock = pygame.time.Clock()
 
@@ -89,6 +103,7 @@ while 1 :
 				mario.change(0,1)
 			elif event.key == K_DOWN:
 				mario.change(0,-1)
+#	allsprites = pygame.sprite.RenderPlain(mario, bullet)
 	allsprites.update()
 	screen.blit(background, (0,0))
 	allsprites.draw(screen)
