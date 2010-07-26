@@ -48,6 +48,7 @@ class Mario(pygame.sprite.Sprite):
 		self.movy+=(2*y)
 			
 
+
 class Gun(pygame.sprite.Sprite):
 	def __init__(self):
 		pygame.sprite.Sprite.__init__(self)
